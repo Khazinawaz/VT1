@@ -8,7 +8,7 @@ resources:
 pipelines:
   - name: test_reports_pipe
     steps:
-      - name: testReport_u16
+      - name: testReport_u16_1
         type: Bash
         configuration:
           inputResources:
@@ -25,4 +25,65 @@ pipelines:
             - cd $res_script_repo1_resourcePath            
             - py.test --verbose --junit-xml test-reports/results.xml test_calc.py
             #- python -m pytest --verbose --junit-xml test-reports/results.xml test_calc.py
-            - save_tests $res_script_repo1_resourcePath/test-reports/results.xml     
+            - save_tests $res_script_repo1_resourcePath/test-reports/results.xml
+      - name: testReport_u16_2
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: testReport_u16_1
+          inputResources:
+            - name: script_repo1
+        execution:
+          onExecute:
+            - printenv
+            - cd $res_script_repo1_resourcePath
+            - python -m py_compile calc.py
+            #- sleep 20
+            - pip install --upgrade pip
+            - hash -d pip
+            - pip install pytest
+            - cd $res_script_repo1_resourcePath            
+            - py.test --verbose --junit-xml test-reports/results.xml test_calc.py
+            #- python -m pytest --verbose --junit-xml test-reports/results.xml test_calc.py
+            - save_tests $res_script_repo1_resourcePath/test-reports/results.xml
+      - name: testReport_u16_3
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: testReport_u16_2
+          inputResources:
+            - name: script_repo1
+        execution:
+          onExecute:
+            - printenv
+            - cd $res_script_repo1_resourcePath
+            - python -m py_compile calc.py
+            #- sleep 20
+            - pip install --upgrade pip
+            - hash -d pip
+            - pip install pytest
+            - cd $res_script_repo1_resourcePath            
+            - py.test --verbose --junit-xml test-reports/results.xml test_calc.py
+            #- python -m pytest --verbose --junit-xml test-reports/results.xml test_calc.py
+            - save_tests $res_script_repo1_resourcePath/test-reports/results.xml
+      - name: testReport_u16_4
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: testReport_u16_3
+          inputResources:
+            - name: script_repo1
+        execution:
+          onExecute:
+            - printenv
+            - cd $res_script_repo1_resourcePath
+            - python -m py_compile calc.py
+            #- sleep 20
+            - pip install --upgrade pip
+            - hash -d pip
+            - pip install pytest
+            - cd $res_script_repo1_resourcePath            
+            - py.test --verbose --junit-xml test-reports/results.xml test_calc.py
+            #- python -m pytest --verbose --junit-xml test-reports/results.xml test_calc.py
+            - save_tests $res_script_repo1_resourcePath/test-reports/results.xml
+            
