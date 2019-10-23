@@ -2,7 +2,7 @@ resources:
   - name: script_repo1
     type: GitRepo
     configuration:
-      gitProvider: deepikaGithub
+      gitProvider: gh
       path: deepikasl/sample-script
       
 pipelines:
